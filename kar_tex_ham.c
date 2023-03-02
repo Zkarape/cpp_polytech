@@ -36,13 +36,106 @@ void multiply_matrices(int A[n][n], int B[n][n], int C[n][n])
             }
         }
     }
+   // for (int i = 1; i < n; i++)
+  //  {
+//	    for (int j = 1; j < n; j++)
+///	    {
+//		    res[i][j] += C[i][j];
+//	    }
+//    }
+}
+
+//void	powerOfMatrix(int A[n][n], int exp, int res[n][n])
+//{
+//	int i, j;
+//	for (i = 1; i < n; i++)
+//	{
+//		for (j = 1; j < n; j++)
+//		{
+//			res[i][j] = (i == j) ? 1 : 0;
+//		}
+//	}
+//	while (exp > 0)
+//	{
+//		if (exp % 2 == 1)
+//		{
+//			int temp[n][n];
+//			multiply_matrices(res, A, temp);
+//			for (i = 1; i < n; i++)
+//			{
+//				for (j = 1; j < n; j++)
+//				{
+//					res[i][j] = temp[i][j];
+//				}
+//			}
+//		}
+//		int temp[n][n];
+//		multiply_matrices(A, A, temp);
+//		for (i = 1; i < n; i++)
+//		{
+//			for (j = 1; j < n; j++)
+//			{
+//				A[i][j] = temp[i][j];
+//			}
+//		}
+//		exp /= 2;
+//		printf("A^%d:\n", exp * 2);
+//		for (i = 1; i < n; i++)
+//		{
+//			for (j = 1; j < n; j++)
+//			{
+//				printf("%d ", res[i][j]);
+//			}
+//			printf("\n");
+//		}
+//		printf("\n");
+//	}
+//}
+
+void	powerOfMatrix(int A[n][n], int exp, int res[n][n], int sum[n][n])
+{
+	int i, j;
+	for (i = 1; i < n; i++)
+	{
+		res[0][0] = 0;
+		for (j = 1; j < n; j++)
+		{
+			res[i][j] = (i == j) ? 1 : 0;
+		}
+	}
+	for (i = 1; i <= exp; i++)
+	{
+		int temp[n][n];
+		multiply_matrices(res, A, temp);
+		for (j = 1; j < n; j++)
+		{
+			for (int k = 1; k < n; k++)
+			{
+				res[j][k] = temp[j][k];
+			}
+		}
+		printf("A^%d:\n", i);
+		for (j = 0; j < n; j++)
+		{
+			for (int k = 0; k < n; k++)
+			{
+				printf("%d ", res[j][k]);
+			}
+			printf("\n");
+		}
+		for (int i = 1; i < n; i++)
+		{
+			for (int j = 1; j < n; j++)
+			{
+				sum[i][j] = res[]
+			}
+		}
+		printf("\n");
+	}
 }
 
 int main()
 {
-//	int	n = 9;
-//	printf("Enter n: ");
-//	scanf("%d\n", &n);
 	int		exp = 8;
 	int		A[n][n];
 	int		B[n][n];
@@ -63,10 +156,13 @@ int main()
 	for (int i = 1; i < n; i++)
 	{
 		A[i][0] = i;
+		res[i][0] = i;
 		for (int j = 1; j < n; j++)
 		{
 			A[0][j] = j;
 			A[i][j] = 0;
+			res[0][j] = j;
+			res[i][j] = 0;
 		}
 	}
 	i = -1;
@@ -82,17 +178,7 @@ int main()
 		for (int j = 0; j < n; j++)
 		{
 			B[i][j] = A[i][j];
-			res[i][j] = (i == j);
 		}
 	}
-	while (exp > 0)
-	{
-		if (exp % 2 == 1)
-		{
-			multiply_matrices(res, B, res);
-		}
-		multiply_matrices(B, B, B);
-		exp /= 2;
-	}
-	printmatrix(B);	
+	powerOfMatrix(A, exp, res);
 }
