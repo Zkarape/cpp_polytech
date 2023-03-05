@@ -52,9 +52,7 @@ ListNode *List::getNewNode(const double d) const
 
 bool	List::isEmpty() const
 {
-	if (!_firstPtr)
-		return (1);
-	return (0);
+	return (_firstPtr == nullptr);
 }
 
 void	List::insertAtFront(const double d)
@@ -62,11 +60,10 @@ void	List::insertAtFront(const double d)
 	ListNode *cur;
 
 	cur = getNewNode(d);
-	if (!isEmpty())
+	if (isEmpty())
 	{
 		_firstPtr = cur;
 		_lastPtr = cur;
-	//	cur->_next = nullptr;
 	}
 	else
 		cur->_next = _firstPtr;
@@ -78,7 +75,12 @@ void	List::insertAtBack(const double d)
 	ListNode *cur;
 
 	cur = getNewNode(d);
-	if (_lastPtr == nullptr)
+	if (isEmpty())
+	{
+		_firstPtr = cur;
+		_lastPtr = cur;
+	}
+	else if (_lastPtr == nullptr)
 		_lastPtr = cur;
 	else
 		_lastPtr->_next = cur;
@@ -88,10 +90,13 @@ void	List::insertAtBack(const double d)
 
 bool	List::RemoveFromFront(double &d)//sending with reference for avoiding redundant copy of d
 {
+	ListNode *tmp;
+
 	if (!isEmpty())
 	{
-		_firstPtr->_next = nullptr;
+		tmp = _firstPtr->_next;
 		delete (_firstPtr);
+		_firstPtr = tmp;
 		std::cout << d << " containing node is deleted from front" << std::endl;
 		return (1);
 	}
