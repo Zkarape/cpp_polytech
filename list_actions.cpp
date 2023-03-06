@@ -80,9 +80,10 @@ void	List::insertAtBack(const double d)
 {
 	ListNode *cur;
 	ListNode *next;
+	ListNode *nxtcur;
 
 	cur = getNewNode(d);
-	next = cur->getnode();
+	nxtcur = cur->getnode();
 	if (isEmpty())
 	{
 		_firstPtr = cur;
@@ -91,8 +92,11 @@ void	List::insertAtBack(const double d)
 	else if (_lastPtr == nullptr)
 		_lastPtr = cur;
 	else
-		_lastPtr->getnode() = cur;
-	cur->getnode() = nullptr;
+	{
+		next = _lastPtr->getnode();
+		next = cur;
+	}
+	nxtcur = nullptr;
 	std::cout << d << " containing node is inserted at back" << std::endl;
 }
 
@@ -118,14 +122,16 @@ bool	List::RemoveFromFront(double &d)//sending with reference for avoiding redun
 bool	List::RemoveFromBack(double &d)
 {
 	ListNode *tmp;
+	ListNode *tmpnxt;
 
 	tmp = _firstPtr;
 	while (tmp->getnode()->getnode())
 		tmp = tmp->getnode();
 	if (tmp)
 	{
+		tmpnxt = tmp->getnode();
 		delete tmp->getnode();
-		tmp->getnode() = nullptr;
+		tmpnxt = nullptr;
 		_lastPtr = tmp;
 		std::cout << d << " containing node is deleted from back" << std::endl;
 		return (1);
@@ -162,7 +168,17 @@ List::~List()
 	}
 }
 
-//int main()
-//{
-//	
-//}
+void	instructions()
+{
+	std::cout << "Enter one of the following\n"
+		<< "1 to insert at beginning of list\n"
+		<< "2 to insert at end of the list\n"
+		<< "3 to delete from beginning of list\n"
+		<< "4 to delete from end of list\n"
+		<< "5 to end list processing\n";
+}
+
+int main()
+{
+	instructions();
+}
