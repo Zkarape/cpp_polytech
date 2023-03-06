@@ -2,11 +2,19 @@
 
 class ListNode
 {
-        public:
-		ListNode(const double);
 	private:
 		double  _data;
 		ListNode *_next;
+        public:
+		ListNode(const double);
+		double getdata() const
+		{
+			return (_data);
+		}
+		ListNode *getnode()
+		{
+			return (_next);
+		}
 };
 
 class List
@@ -27,10 +35,6 @@ class List
                 ListNode* _firstPtr;
                 ListNode* _lastPtr;
 };
-
-//ListNode::ListNode(const double data)
-//: _data = data,
-//  _next = nullptr
 
 ListNode::ListNode(const double data)
 {
@@ -58,23 +62,27 @@ bool	List::isEmpty() const
 void	List::insertAtFront(const double d)
 {
 	ListNode *cur;
+	ListNode *next;
 
 	cur = getNewNode(d);
+	next = cur->getnode();
 	if (isEmpty())
 	{
 		_firstPtr = cur;
 		_lastPtr = cur;
 	}
 	else
-		cur->_next = _firstPtr;
+		next = _firstPtr;
 	std::cout << d << " containing node is inserted at front" << std::endl;
 }
 
 void	List::insertAtBack(const double d)
 {
 	ListNode *cur;
+	ListNode *next;
 
 	cur = getNewNode(d);
+	next = cur->getnode();
 	if (isEmpty())
 	{
 		_firstPtr = cur;
@@ -83,8 +91,8 @@ void	List::insertAtBack(const double d)
 	else if (_lastPtr == nullptr)
 		_lastPtr = cur;
 	else
-		_lastPtr->_next = cur;
-	cur->_next = nullptr;
+		_lastPtr->getnode() = cur;
+	cur->getnode() = nullptr;
 	std::cout << d << " containing node is inserted at back" << std::endl;
 }
 
@@ -94,7 +102,7 @@ bool	List::RemoveFromFront(double &d)//sending with reference for avoiding redun
 
 	if (!isEmpty())
 	{
-		tmp = _firstPtr->_next;
+		tmp = _firstPtr->getnode();
 		delete (_firstPtr);
 		_firstPtr = tmp;
 		std::cout << d << " containing node is deleted from front" << std::endl;
@@ -112,12 +120,12 @@ bool	List::RemoveFromBack(double &d)
 	ListNode *tmp;
 
 	tmp = _firstPtr;
-	while (tmp->_next->_next)
-		tmp = tmp->_next;
+	while (tmp->getnode()->getnode())
+		tmp = tmp->getnode();
 	if (tmp)
 	{
-		delete tmp->_next;
-		tmp->_next = nullptr;
+		delete tmp->getnode();
+		tmp->getnode() = nullptr;
 		_lastPtr = tmp;
 		std::cout << d << " containing node is deleted from back" << std::endl;
 		return (1);
@@ -129,15 +137,15 @@ bool	List::RemoveFromBack(double &d)
 	}
 }
 
-void	List::print()
+void	List::print() const
 {
 	ListNode *tmp;
 
 	tmp = _firstPtr;
 	while (tmp)
 	{
-		std::cout << "data is " << tmp->_data << std::endl;
-		tmp = tmp->_next;
+		std::cout << "data is " << tmp->getdata() << std::endl;
+		tmp = tmp->getnode();
 	}
 }
 
@@ -148,7 +156,7 @@ List::~List()
 	tmp = _firstPtr;
 	while (tmp)
 	{
-		tmp = _firstPtr->_next;
+		tmp = _firstPtr->getnode();
 		delete _firstPtr;
 		_firstPtr = tmp;
 	}
