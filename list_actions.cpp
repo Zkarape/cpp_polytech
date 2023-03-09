@@ -63,16 +63,22 @@ void	List::insertAtFront(const double d)
 {
 	ListNode *cur;
 	ListNode *next;
+	ListNode *nxt;
 
 	cur = getNewNode(d);
-	next = cur->getnode();
 	if (isEmpty())
 	{
 		_firstPtr = cur;
 		_lastPtr = cur;
 	}
 	else
+	{
+		printf("hes emmmmmm\n");
 		next = _firstPtr;
+		_firstPtr = cur;
+		nxt = cur->getnode();
+		nxt = next;
+	}
 	std::cout << d << " containing node is inserted at front" << std::endl;
 }
 
@@ -80,23 +86,19 @@ void	List::insertAtBack(const double d)
 {
 	ListNode *cur;
 	ListNode *next;
-	ListNode *nxtcur;
 
 	cur = getNewNode(d);
-	nxtcur = cur->getnode();
 	if (isEmpty())
 	{
 		_firstPtr = cur;
 		_lastPtr = cur;
 	}
-	else if (_lastPtr == nullptr)
-		_lastPtr = cur;
 	else
 	{
 		next = _lastPtr->getnode();
 		next = cur;
+		_lastPtr = cur;
 	}
-	nxtcur = nullptr;
 	std::cout << d << " containing node is inserted at back" << std::endl;
 }
 
@@ -180,5 +182,43 @@ void	instructions()
 
 int main()
 {
-	instructions();
+	int	 x;
+	double a = 9;
+	double b = 99;
+	int	 data;
+	List	L;
+
+	//instructions();
+//	std::cin >> x;
+	/*
+	while (x != 5)
+	{
+		std::cin >> x;
+		if (x == 1)
+		{
+			std::cout << "Enter double data: ";
+			std::cin >> data;
+			L.insertAtFront(data);
+		}
+		else if (x == 2)
+		{
+			std::cout << "enter double data: ";
+			std::cin >> data;
+			L.insertatback(data);
+		}
+		else if (x == 3)
+		{
+			L.removefromfront(a);
+		}
+		else if (x == 4)
+		{
+			L.removefromback(a);
+		}
+	}
+	*/
+	L.insertAtFront(a);
+	L.insertAtFront(b);
+//	L.insertAtBack(b);
+	L.print();
+	L.~List();
 }
