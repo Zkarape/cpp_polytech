@@ -2,6 +2,7 @@
 
 class ListNode
 {
+	friend class List;
 	private:
 		double  _data;
 		ListNode *_next;
@@ -73,11 +74,9 @@ void	List::insertAtFront(const double d)
 	}
 	else
 	{
-		printf("hes emmmmmm\n");
 		next = _firstPtr;
 		_firstPtr = cur;
-		nxt = cur->getnode();
-		nxt = next;
+		cur->_next = next;
 	}
 	std::cout << d << " containing node is inserted at front" << std::endl;
 }
@@ -152,6 +151,7 @@ void	List::print() const
 	tmp = _firstPtr;
 	while (tmp)
 	{
+		printf("one timeeeeeeeeeeeeee\n");
 		std::cout << "data is " << tmp->getdata() << std::endl;
 		tmp = tmp->getnode();
 	}
@@ -218,6 +218,7 @@ int main()
 	*/
 	L.insertAtFront(a);
 	L.insertAtFront(b);
+	L.insertAtFront(a);
 //	L.insertAtBack(b);
 	L.print();
 	L.~List();
