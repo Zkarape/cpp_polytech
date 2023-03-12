@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #define n 10
+//tpel tery, kontury stugel, avelacnel t5-y
 int	ft_strlen(char *s)
 {
 	int	i;
@@ -79,18 +80,35 @@ void	powerOfMatrix(int A[n][n], int exp, int res[n][n], int sum[n][n])
 
 int main()
 {
-	int		exp = 8;
-	int		A[n][n];
-	int		B[n][n];
-	int		sum[n][n];
-	int		res[n][n];
-	char		arr_i[] = "112234455546778895";
-	char		arr_j[] = "456365878979809006";
-	int		arr_ii[ft_strlen(arr_i)];
-	int		arr_ji[ft_strlen(arr_j)];
-	int		i = -1;
-	int		j = -1;
-	while (++i < ft_strlen(arr_i))
+	int	exp = 8;
+	int	A[n][n];
+	int	B[n][n];
+	int	sum[n][n];
+	int	res[n][n];
+	char	arr_i[] = "112234455546778895";
+	char	arr_j[] = "456365878979809006";
+//	char	t1[];
+//	char	t2[];
+//	char	t3[];
+	int	l1 = ft_strlen(arr_i);
+	int	l2 = ft_strlen(arr_j);
+	int	arr_ii[l1];
+	int	arr_ji[l2];
+	int	i = -1;
+	int	j = -1;
+	int	z = 0;
+	int	k = 0;
+//	for (int i = 0; i < l1; i++)
+//	{
+//		for (int j = 0; j < l2; j++)
+//		{
+//			if (arr_i[i] == arr_j[j])
+//				k = 9;
+//		}
+//		if (!k)
+//			t1[z++] = arr_i[i];
+//	}
+	while (++i < l1)
 	{
 		arr_ii[i] = arr_i[i] - 48;
 		arr_ji[i] = arr_j[i] - 48;
