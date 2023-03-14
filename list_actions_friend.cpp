@@ -94,7 +94,8 @@ void	List::insertAtBack(const double d)
 	}
 	else
 	{
-		_lastPtr->_next = cur;
+		next = _lastPtr->getnode();
+		next = cur;
 		_lastPtr = cur;
 	}
 	std::cout << d << " containing node is inserted at back" << std::endl;
@@ -106,7 +107,7 @@ bool	List::RemoveFromFront(double &d)//sending with reference for avoiding redun
 
 	if (!isEmpty())
 	{
-		tmp = _firstPtr->_next;
+		tmp = _firstPtr->getnode();
 		delete (_firstPtr);
 		_firstPtr = tmp;
 		std::cout << d << " containing node is deleted from front" << std::endl;
@@ -122,20 +123,25 @@ bool	List::RemoveFromFront(double &d)//sending with reference for avoiding redun
 bool	List::RemoveFromBack(double &d)
 {
 	ListNode *tmp;
+	ListNode *tmpnxt;
 
 	tmp = _firstPtr;
-	if (isEmpty())
+	while (tmp->getnode()->getnode())
+		tmp = tmp->getnode();
+	if (tmp)
 	{
-		std::cout << " list is empty" << std::endl;
+		tmpnxt = tmp->getnode();
+		delete tmp->getnode();
+		tmpnxt = nullptr;
+		_lastPtr = tmp;
+		std::cout << d << " containing node is deleted from back" << std::endl;
+		return (1);
+	}
+	else
+	{
+		std::cout << d << " containing node is not deleted from back" << std::endl;
 		return (0);
 	}
-	while (tmp->_next && tmp->_next->_next)
-		tmp = tmp->_next;
-	delete tmp->_next;
-	tmp->_next = nullptr;
-	_lastPtr = tmp;
-	std::cout << d << " containing node is deleted from back" << std::endl;
-	return (1);
 }
 
 void	List::print() const
@@ -145,8 +151,9 @@ void	List::print() const
 	tmp = _firstPtr;
 	while (tmp)
 	{
-		std::cout << "data is " << tmp->_data << std::endl;
-		tmp = tmp->_next;
+		printf("one timeeeeeeeeeeeeee\n");
+		std::cout << "data is " << tmp->getdata() << std::endl;
+		tmp = tmp->getnode();
 	}
 }
 
@@ -157,7 +164,7 @@ List::~List()
 	tmp = _firstPtr;
 	while (tmp)
 	{
-		tmp = _firstPtr->_next;
+		tmp = _firstPtr->getnode();
 		delete _firstPtr;
 		_firstPtr = tmp;
 	}
@@ -175,14 +182,15 @@ void	instructions()
 
 int main()
 {
-	int	 x = 1;
+	int	 x;
 	double a = 9;
 	double b = 99;
 	int	 data;
 	List	L;
 
-	instructions();
+	//instructions();
 //	std::cin >> x;
+	/*
 	while (x != 5)
 	{
 		std::cin >> x;
@@ -196,22 +204,22 @@ int main()
 		{
 			std::cout << "enter double data: ";
 			std::cin >> data;
-			L.insertAtBack(data);
+			L.insertatback(data);
 		}
 		else if (x == 3)
 		{
-			L.RemoveFromFront(a);
+			L.removefromfront(a);
 		}
 		else if (x == 4)
 		{
-			L.RemoveFromBack(a);
+			L.removefromback(a);
 		}
 	}
-	//L.insertAtFront(a);
-//	L.insertAtFront(b);
+	*/
+	L.insertAtFront(a);
+	L.insertAtFront(b);
+	L.insertAtFront(a);
 //	L.insertAtBack(b);
-//	L.RemoveFromBack(b);
-//	L.RemoveFromBack(b);
 	L.print();
 	L.~List();
 }
