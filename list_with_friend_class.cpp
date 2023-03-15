@@ -174,7 +174,6 @@ int main()
 	List	L;
 
 	instructions();
-//	std::cin >> x;
 	while (x != 5)
 	{
 		std::cin >> x;

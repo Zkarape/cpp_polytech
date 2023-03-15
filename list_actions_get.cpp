@@ -77,9 +77,6 @@ void	List::insertAtFront(const double d)
 		_firstPtr = cur;
 		nxt = cur->getnode();
 		nxt = next;
-	//	next = _firstPtr;
-	//	_firstPtr = cur;
-	//	cur->_next = next;
 	}
 	std::cout << d << " containing node is inserted at front" << std::endl;
 }

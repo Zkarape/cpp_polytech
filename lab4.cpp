@@ -20,7 +20,8 @@ class List
                 void    insertAtBack(const double);
                 bool    RemoveFromFront(double &);
                 bool    RemoveFromBack(double &);
-		bool	insertAtIndex(const size_t idx, const double value);
+		bool	insertAtIndex(size_t idx, const double value);
+		bool	removeAtIndex(size_t idx, const double value);
 		size_t	getElementCount() const;
                 bool    isEmpty() const;
                 void    print() const;
@@ -56,30 +57,43 @@ ListNode *List::getNewNode(const double d) const
 	return (newNode);
 }
 
-bool	List::insertAtIndex(const size_t idx, const double value)
+bool	List::isEmpty() const
+{
+	return (_firstPtr == nullptr);
+}
+
+bool	List::insertAtIndex(size_t idx, const double value)
 {
 	ListNode *tmp;
 	ListNode *next;
 	ListNode *newone;
 
 	newone = getNewNode(value);
+	tmp = _firstPtr;
+	if (isEmpty())
+	{
+		std::cout << " list is empty" << std::endl;
+		return (0);
+	}
 	if (idx < 1 || idx > _count + 1)
 	{
 		std::cout << "Invalid index" << std::endl;
 		return (0);
 	}
-	while (--idx > 1)//until idx - 1 th node
+	while (--idx >= 1)//until idx - 1 th node
 		tmp = tmp->_next;
 	next = tmp->_next;
 	tmp->_next = newone;
 	newone->_next = next;
 	_count++;
+	std::cout << value << " containing node is inserted at idx" << std::endl;
+	return (1);
 }
 
-bool	List::isEmpty() const
-{
-	return (_firstPtr == nullptr);
-}
+//bool	List::removeAtIndex(size_t idx, const double value)
+//{
+//	
+//}
 
 void	List::insertAtFront(const double d)
 {
@@ -129,6 +143,7 @@ bool	List::RemoveFromFront(double &d)//sending with reference for avoiding redun
 
 	if (!isEmpty())
 	{
+		d = _firstPtr->_data;
 		tmp = _firstPtr->_next;
 		delete (_firstPtr);
 		_firstPtr = tmp;
@@ -155,6 +170,7 @@ bool	List::RemoveFromBack(double &d)
 	}
 	while (tmp->_next && tmp->_next->_next)
 		tmp = tmp->_next;
+	d = tmp->_data;
 	delete tmp->_next;
 	tmp->_next = nullptr;
 	_lastPtr = tmp;
@@ -195,20 +211,26 @@ void	instructions()
 		<< "2 to insert at end of the list\n"
 		<< "3 to delete from beginning of list\n"
 		<< "4 to delete from end of list\n"
-		<< "5 to end list processing\n";
+		<< "5 to insert at index idx\n"
+		<< "6 to report the number of elemens\n"
+		<< "7 to end list processing\n";
+
 }
 
 int main()
 {
-	int	x = 1;
+	int	x = 2;
 	int	idx = 0;
 	double	a = 9;
 	double	b = 99;
+	double	aa = 88;
+	double	bb = 77;
 	int	data;
 	List	L;
 
+	
 	instructions();
-	while (x != 5)
+	while (x != 7)
 	{
 		std::cin >> x;
 		if (x == 1)
@@ -235,7 +257,7 @@ int main()
 		{	
 			std::cout << "enter index: ";
 			std::cin >> idx;
-			std::cout << "\nenter double data: ";
+			std::cout << "enter double data: ";
 			std::cin >> data;
 			L.insertAtIndex(idx, data);
 		}
@@ -244,9 +266,12 @@ int main()
 			std::cout << "_count is: " << L.getElementCount();
 		}
 	}
-	//L.insertAtFront(a);
+	
+//	L.insertAtFront(a);
 //	L.insertAtFront(b);
 //	L.insertAtBack(b);
+//	L.insertAtBack(aa);
+//	L.insertAtIndex(2, bb);
 //	L.RemoveFromBack(b);
 //	L.RemoveFromBack(b);
 	L.print();
