@@ -8,14 +8,6 @@ class ListNode
 		ListNode *_next;
         public:
 		ListNode(const double);
-		double getdata() const
-		{
-			return (_data);
-		}
-		ListNode *getnode()
-		{
-			return (_next);
-		}
 };
 
 class List	
