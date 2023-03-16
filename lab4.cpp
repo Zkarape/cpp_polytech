@@ -266,14 +266,6 @@ int main()
 			std::cout << "_count is: " << L.getElementCount();
 		}
 	}
-	
-//	L.insertAtFront(a);
-//	L.insertAtFront(b);
-//	L.insertAtBack(b);
-//	L.insertAtBack(aa);
-//	L.insertAtIndex(2, bb);
-//	L.RemoveFromBack(b);
-//	L.RemoveFromBack(b);
 	L.print();
 	L.~List();
 }

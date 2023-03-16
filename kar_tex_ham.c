@@ -1,18 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-#define n 10
-//tpel tery, kontury stugel, avelacnel t5-y
-int	ft_strlen(char *s)
-{
-	int	i;
+#define n 5
+#define N 6
 
-	i = -1;
-	if (!s)
-		return (0);
-	while (s[++i])
-		;
-	return (i);
-}
+//tpel tery, kontury stugel, avelacnel t5-y
 
 void	printmatrix(int A[n][n], int sum)
 {
@@ -43,18 +34,31 @@ void multiply_matrices(int A[n][n], int B[n][n], int C[n][n])
     }
 }
 
-void	powerOfMatrix(int A[n][n], int exp, int res[n][n], int sum[n][n])
+int	all_zeroes(int res[n][n])
 {
-	int i, j;
-	for (i = 1; i < n; i++)
+	for (int i = 1; i < n; i++)
 	{
-		res[0][0] = 0;
+		for (int j = 1; j < n; j++)
+		{
+			if (res[i][j])
+				return (0);
+		}
+	}
+	return (1);
+}
+
+int	powerOfMatrix(int A[n][n], int res[n][n], int sum[n][n])
+{
+	int i = 1, j;
+	res[0][0] = 0;
+	for (int i = 1; i < n; i++)
+	{
 		for (j = 1; j < n; j++)
 		{
 			res[i][j] = (i == j) ? 1 : 0;
 		}
 	}
-	for (i = 1; i <= exp; i++)
+	while (1)
 	{
 		int temp[n][n];
 		multiply_matrices(res, A, temp);
@@ -65,8 +69,10 @@ void	powerOfMatrix(int A[n][n], int exp, int res[n][n], int sum[n][n])
 				res[j][k] = temp[j][k];
 			}
 		}
+		if (all_zeroes(res))
+			break ;
 		printf("A^%d:\n", i);
-		printmatrix(res, 0);	
+		printmatrix(res, 0);
 		for (int i = 1; i < n; i++)
 		{
 			for (int j = 1; j < n; j++)
@@ -75,43 +81,92 @@ void	powerOfMatrix(int A[n][n], int exp, int res[n][n], int sum[n][n])
 			}
 		}
 		printf("\n");
+		i++;
 	}
+	return (i);
+}
+
+int	repeated(int arr_i[N], int num, int pos)
+{
+	for (int i = 0; i < pos; i++)
+	{
+		if (arr_i[i] == num)
+			return (1);
+	}
+	return (0);
+}
+
+void	calculations(int A[n][n], int arr_i[N], int arr_j[N])
+{
+	int	t1 = 0;
+	int	t2 = 0;
+	int	t3 = 0;
+	int	j = 0;
+	int	nerqin_kaper = 0;
+	int	miavor_kaper = 0;
+
+	for (int i = 0; i < N; i++)
+	{
+		for (j = 0; j < N; j++)
+		{
+			if (arr_i[i] == arr_j[j])
+				break ;
+		}
+		if (!repeated(arr_i, arr_i[i], i) && j == N)
+			t1++;
+	}
+	printf("t1 == %d\n", t1);
+	for (int i = 0; i < N; i++)
+	{
+		for (j = 0; j < N; j++)
+		{	
+			if (arr_i[i] == arr_j[j])
+			{
+				if (A[arr_i[i]][arr_j[i]] == 1)
+					nerqin_kaper++;
+				break ;
+			}
+		}
+		if (!repeated(arr_i, arr_i[i], i) && j != N && arr_j[i] != 0)
+			t2++;
+	}
+	printf("t2 == %d\n", t2);
+	for (int j = 0; j < N; j++)
+	{
+		if (arr_j[j] == 0)
+			t3++;
+	}
+	printf("t3 == %d\n", t3);
+	for (int i = 1; i < n; i++)
+	{
+		for (int j = 1; j < n; j++)
+		{
+			if (A[i][j] == 1)
+				miavor_kaper++;
+		}
+	}
+	//krknman gorcakic, elqayin tarreri mijankyal kaperi gorcakic
+	printf("Միջանկյալ տարրերի գործակից։ %f\n", (double)t2 / (double)(n - 1));
+	printf("Ներքին տարրերի գործակից։ %f\n", (double)nerqin_kaper / (double)miavor_kaper);
 }
 
 int main()
 {
-	int	exp = 8;
 	int	A[n][n];
 	int	B[n][n];
 	int	sum[n][n];
 	int	res[n][n];
-	char	arr_i[] = "112234455546778895";
-	char	arr_j[] = "456365878979809006";
-//	char	t1[];
-//	char	t2[];
-//	char	t3[];
-	int	l1 = ft_strlen(arr_i);
-	int	l2 = ft_strlen(arr_j);
-	int	arr_ii[l1];
-	int	arr_ji[l2];
+	int	arr_i[N];
+	int	arr_j[N];
 	int	i = -1;
 	int	j = -1;
 	int	z = 0;
 	int	k = 0;
-//	for (int i = 0; i < l1; i++)
-//	{
-//		for (int j = 0; j < l2; j++)
-//		{
-//			if (arr_i[i] == arr_j[j])
-//				k = 9;
-//		}
-//		if (!k)
-//			t1[z++] = arr_i[i];
-//	}
-	while (++i < l1)
+
+	for (int i = 0; i < N; i++)
 	{
-		arr_ii[i] = arr_i[i] - 48;
-		arr_ji[i] = arr_j[i] - 48;
+		printf("arr_i[%d], arr_j[%d] ", i, i);
+		scanf("%d %d", &arr_i[i], &arr_j[i]);
 	}
 	i = -1;
 	A[0][0] = 0;
@@ -132,10 +187,10 @@ int main()
 		}
 	}
 	i = -1;
-	while (++i < ft_strlen(arr_i))
+	while (++i < N)
 	{
-		if (arr_ji[i] != 0)
-			A[arr_ii[i]][arr_ji[i]] = 1;
+		if (arr_j[i] != 0)
+			A[arr_i[i]][arr_j[i]] = 1;
 	}
 	printf("\n");
 	for (int i = 0; i < n; i++)
@@ -145,6 +200,7 @@ int main()
 			B[i][j] = A[i][j];
 		}
 	}
-	powerOfMatrix(A, exp, res, sum);
+	calculations(A, arr_i, arr_j);
+	printf("Մատրիցի կարգն է: %d\n", powerOfMatrix(A, res, sum) - 1);
 	printmatrix(sum, 1);
 }
