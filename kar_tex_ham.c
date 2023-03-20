@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#define n 5
-#define N 6
-
-//tpel tery, kontury stugel, avelacnel t5-y
+#define n 10
+#define N 18
 
 void	printmatrix(int A[n][n], int sum)
 {
@@ -47,6 +45,16 @@ int	all_zeroes(int res[n][n])
 	return (1);
 }
 
+int	diagonal_zeroes(int res[n][n])
+{
+	for (int i = 1; i < n; i++)
+	{
+		if (res[i][i])
+			return (0);
+	}
+	return (1);
+}
+
 int	powerOfMatrix(int A[n][n], int res[n][n], int sum[n][n])
 {
 	int i = 1, j;
@@ -71,6 +79,8 @@ int	powerOfMatrix(int A[n][n], int res[n][n], int sum[n][n])
 		}
 		if (all_zeroes(res))
 			break ;
+		if (!diagonal_zeroes(res))
+			retrun (-1);
 		printf("A^%d:\n", i);
 		printmatrix(res, 0);
 		for (int i = 1; i < n; i++)
@@ -145,7 +155,6 @@ void	calculations(int A[n][n], int arr_i[N], int arr_j[N])
 				miavor_kaper++;
 		}
 	}
-	//krknman gorcakic, elqayin tarreri mijankyal kaperi gorcakic
 	printf("Միջանկյալ տարրերի գործակից։ %f\n", (double)t2 / (double)(n - 1));
 	printf("Ներքին տարրերի գործակից։ %f\n", (double)nerqin_kaper / (double)miavor_kaper);
 }
@@ -160,7 +169,6 @@ int main()
 	int	arr_j[N];
 	int	i = -1;
 	int	j = -1;
-	int	z = 0;
 	int	k = 0;
 
 	for (int i = 0; i < N; i++)
@@ -201,6 +209,10 @@ int main()
 		}
 	}
 	calculations(A, arr_i, arr_j);
-	printf("Մատրիցի կարգն է: %d\n", powerOfMatrix(A, res, sum) - 1);
+	k = powerOfMatrix(A, res, sum) - 1;
+	if (k == -1)
+		printf("Մատրիցը ցիկլիկ է\n");
+	else
+		printf("Մատրիցի կարգն է: %d\n", k);
 	printmatrix(sum, 1);
 }
