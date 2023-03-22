@@ -81,7 +81,7 @@ int	num_of_intersections(const Circle &C1, const Circle &C2) const
 	double r2 = C2.getRadius();
 	double	D = 0;
 
-	D = (2(x2 - x1))^2 + (2(y2 - y1))^2 - 4(r1^2 - r2^2 + x1^2 - x2^2 + y1^2 - y2^2);
+	D = (2 * pow((x2 - x1), 2) + (2 * pow((y2 - y1), 2) - 4 * (r1 * r1 - r2 * r2 + x1 * x1 - x2 * x2 + y1 * y1 - y2 * y2);
 	if (r1 == r2 && x01 == x02 && y01 == y02)
 		return (-1);
 	if (D == 0)
@@ -92,14 +92,34 @@ int	num_of_intersections(const Circle &C1, const Circle &C2) const
 		return (0);
 }
 
-double	length_calc(const Circle &C) const
+void	length_calc(const Circle &C) const
+{
+	double r = C.getRadius();
+	
+	std::cout << "The length of circle is: " << 2 * PHI * r << std::endl;
+}
+
+void	area(const Circle &C) const
 {
 	double r = C.getRadius();
 
-	return (2 * PHI * r);
+	std::cout << "Are of circle is: " << PHI * r * r << std::endl;
 }
 
-double area(const Circle &C)
+void	distance_of_centers(const Circle &C1, const Circle &C2) const
 {
-	return (PHI * C.getRadius() * C.getRadius());
+	double x01 = C1.getCenterx();
+	double y01 = C1.getCentery();
+	double x02 = C2.getCenterx();
+	double y02 = C2.getCentery();
+	double	D = 0;
+
+	D = pow((x01 - x02), 2) + pow((y01 - y02), 2);
+	std::cout << "Distance between centers is: " << D << std::endl;
+}
+
+void	move_horizontally(const Circle &C, double move_length) const
+{
+	std::cout << "The new x_0 is: " << C.getCenterx() + move_lenght << std::endl;
+	std::cout << "The new y_0 is: " << C.getCentery() + move_lenght << std::endl;
 }
