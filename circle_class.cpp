@@ -1,6 +1,8 @@
 #include <cmath>
 #include <iostream>
 #include <cstring>
+#include <sstream>
+
 #define PHI 3.14
 
 class Circle
@@ -9,15 +11,14 @@ class Circle
 		double	_r;
 		double	_x0;
 		double	_y0;
-	//	double	area;
 	public:
 		void	setRadius(double);
 		int	setCenterx(double);
 		int	setCentery(double);
-	//	void	area_check(double);
 		double	getRadius() const;
 		double	getCenterx() const;
 		double	getCentery() const;
+		std::string info();
 		Circle(double r = 1, double x0 = 2, double y0 = 2)
 		{
 			setRadius(r);
@@ -88,7 +89,7 @@ void	area_check(Circle &C, double k)
 	std::cout << "The area is: " << area(C) << std::endl;
 }
 
-int	belongs_circle(double x, double y, Circle &C) const
+int	belongs_circle(double x, double y, Circle &C)
 {
 	double x0 = C.getCenterx();
 	double y0 = C.getCentery();
@@ -99,7 +100,7 @@ int	belongs_circle(double x, double y, Circle &C) const
 	return (0);
 }
 
-double	distance_of_centers(Circle &C1, Circle &C2) const
+double	distance_of_centers(Circle &C1, Circle &C2)
 {
 	double x01 = C1.getCenterx();
 	double y01 = C1.getCentery();
@@ -112,7 +113,7 @@ double	distance_of_centers(Circle &C1, Circle &C2) const
 	return (D);
 }
 
-int	num_of_intersections(Circle &C1, Circle &C2) const
+int	num_of_intersections(Circle &C1, Circle &C2)
 {
 	double x1 = C1.getCenterx();
 	double y1 = C1.getCentery();
@@ -134,7 +135,7 @@ int	num_of_intersections(Circle &C1, Circle &C2) const
 	return (8);
 }
 
-void	length_calc(Circle &C) const
+void	length_calc(Circle &C)
 {
 	double r = C.getRadius();
 	
@@ -153,4 +154,19 @@ void	move_vertically(Circle &C, double move_step)
 	std::cout << "The new y_0 is: " << C.getCentery() << std::endl;
 }
 
+std::string	Circle::info()
+{
+	std::ostringstream ostr;
 
+	ostr << "x0 is: " << _x0 << ", \n" << "y0 is: " << _y0 << ", \n" << "radius is: " << _r << std::endl;
+	return (ostr.str());
+}
+
+int main()
+{
+	Circle C(3, 5, 8);
+	Circle C1(4, 2, 2);
+
+	std::cout << C.info() << std::endl;
+	std::cout << C1.info() << std::endl;
+}
