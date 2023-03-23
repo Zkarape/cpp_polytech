@@ -21,9 +21,11 @@ class Circle
 		std::string info();
 		Circle(double r = 1, double x0 = 2, double y0 = 2)
 		{
-			setRadius(r);
-			setCenterx(x0);
-			setCentery(y0);
+			_r = r;
+			_x0 = x0;
+			_y0 = y0;
+		//if
+		//throw()
 		}
 		~Circle()
 		{
@@ -33,7 +35,7 @@ class Circle
 
 void	Circle::setRadius(double radius)
 {
-	if (radius > 0)
+	if (radius > 0)//&& _)
 		_r = radius;
 }
 
@@ -47,6 +49,7 @@ int	Circle::setCenterx(double x0)
 int	Circle::setCentery(double y0)
 {
 	if (_y0 + _r > 0)
+//	{}
 		return (_y0 = y0);
 	return (0);
 }
@@ -74,7 +77,7 @@ double	area(const Circle &C)
 	std::cout << "Are of circle is: " << area << std::endl;
 	return (area);
 }
-
+//add const to object
 void	area_check(Circle &C, double k)
 {
 	double x0 = C.getCenterx();
@@ -100,7 +103,7 @@ int	belongs_circle(double x, double y, Circle &C)
 	return (0);
 }
 
-double	distance_of_centers(Circle &C1, Circle &C2)
+double	distance_of_centers(const Circle& C1, const Circle& C2)
 {
 	double x01 = C1.getCenterx();
 	double y01 = C1.getCentery();
@@ -109,11 +112,10 @@ double	distance_of_centers(Circle &C1, Circle &C2)
 	double	D = 0;
 
 	D = sqrt(pow((x01 - x02), 2) + pow((y01 - y02), 2));
-	std::cout << "Distance between centers is: " << D << std::endl;
 	return (D);
 }
 
-int	num_of_intersections(Circle &C1, Circle &C2)
+int	num_of_intersections(const Circle &C1, Circle const &C2)
 {
 	double x1 = C1.getCenterx();
 	double y1 = C1.getCentery();
@@ -139,16 +141,16 @@ void	length_calc(Circle &C)
 {
 	double r = C.getRadius();
 	
-	std::cout << "The length of circle is: " << 2 * PHI * r << std::endl;
+	std::cout << "The length of circle is: " << 2 * M_PI * r << std::endl;
 }
 
-void	move_horizontally(Circle &C, double move_step)
+void	move_horizontally(Circle& C, double move_step)
 {
 	C.setCenterx(C.getCenterx() + move_step); 
 	std::cout << "The new x_0 is: " << C.getCenterx() << std::endl;
 }
 
-void	move_vertically(Circle &C, double move_step)
+void	move_vertically(Circle& C, double move_step)
 {
 	C.setCentery(C.getCentery() + move_step);
 	std::cout << "The new y_0 is: " << C.getCentery() << std::endl;
@@ -167,6 +169,11 @@ int main()
 	Circle C(3, 5, 8);
 	Circle C1(4, 2, 2);
 
+	//try
 	std::cout << C.info() << std::endl;
 	std::cout << C1.info() << std::endl;
+	length_calc(C);
+	std::cout << "Distance between centers is: " << distance_of_centers(C, C1) << std::endl;
+	std::cout << "number of intersections is: " << num_of_intersections(C, C1) << std::endl;
+	//catch
 }

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
-#define n 10
-#define N 18
+#define n 18
+#define N 29
 
 void	printmatrix(int A[n][n], int sum)
 {
@@ -78,9 +78,14 @@ int	powerOfMatrix(int A[n][n], int res[n][n], int sum[n][n])
 			}
 		}
 		if (all_zeroes(res))
+		{
+			printf("A^%d:\n", i);
+			printmatrix(res, 0);
+			printf("\n");
 			break ;
+		}
 		if (!diagonal_zeroes(res))
-			retrun (-1);
+			return (-1);
 		printf("A^%d:\n", i);
 		printmatrix(res, 0);
 		for (int i = 1; i < n; i++)
@@ -112,6 +117,7 @@ void	calculations(int A[n][n], int arr_i[N], int arr_j[N])
 	int	t2 = 0;
 	int	t3 = 0;
 	int	j = 0;
+	int	t = 0;
 	int	nerqin_kaper = 0;
 	int	miavor_kaper = 0;
 
@@ -125,6 +131,20 @@ void	calculations(int A[n][n], int arr_i[N], int arr_j[N])
 		if (!repeated(arr_i, arr_i[i], i) && j == N)
 			t1++;
 	}
+	for (int j = 0; j < N; j++)
+	{
+		if (arr_j[j] == 0)
+			t3++;
+	}
+	int	t3_arr[t3];
+	for (int j = 0; j < N; j++)
+	{
+		if (arr_j[j] == 0)
+		{
+			t3_arr[t] = arr_i[j];
+			t++;
+		}
+	}
 	printf("t1 == %d\n", t1);
 	for (int i = 0; i < N; i++)
 	{
@@ -133,7 +153,15 @@ void	calculations(int A[n][n], int arr_i[N], int arr_j[N])
 			if (arr_i[i] == arr_j[j])
 			{
 				if (A[arr_i[i]][arr_j[i]] == 1)
-					nerqin_kaper++;
+				{
+					for (t = 0; t < t3; t++)
+					{
+						if (arr_j[i] == t3_arr[t])
+							break ;
+					}
+					if (t == t3)
+						nerqin_kaper++;
+				}
 				break ;
 			}
 		}
@@ -141,11 +169,6 @@ void	calculations(int A[n][n], int arr_i[N], int arr_j[N])
 			t2++;
 	}
 	printf("t2 == %d\n", t2);
-	for (int j = 0; j < N; j++)
-	{
-		if (arr_j[j] == 0)
-			t3++;
-	}
 	printf("t3 == %d\n", t3);
 	for (int i = 1; i < n; i++)
 	{
@@ -155,6 +178,7 @@ void	calculations(int A[n][n], int arr_i[N], int arr_j[N])
 				miavor_kaper++;
 		}
 	}
+	printf("ներքին կապեր == %d, միավոր կապեր == %d\n", nerqin_kaper, miavor_kaper);
 	printf("Միջանկյալ տարրերի գործակից։ %f\n", (double)t2 / (double)(n - 1));
 	printf("Ներքին տարրերի գործակից։ %f\n", (double)nerqin_kaper / (double)miavor_kaper);
 }
@@ -211,8 +235,9 @@ int main()
 	calculations(A, arr_i, arr_j);
 	k = powerOfMatrix(A, res, sum) - 1;
 	if (k == -1)
-		printf("Մատրիցը ցիկլիկ է\n");
+		printf("Գրաֆը ցիկլիկ է\n");
 	else
 		printf("Մատրիցի կարգն է: %d\n", k);
 	printmatrix(sum, 1);
+	return (0);
 }
