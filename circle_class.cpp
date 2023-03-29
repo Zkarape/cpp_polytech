@@ -21,11 +21,14 @@ class Circle
 		std::string info();
 		Circle(double r = 1, double x0 = 2, double y0 = 2)
 		{
-			_r = r;
-			_x0 = x0;
-			_y0 = y0;
-		//if
-		//throw()
+			if (r > 0 && x0 + r > 0 && y0 + r > 0)
+			{
+				_r = r;
+				_x0 = x0;
+				_y0 = y0;
+			}
+			else
+				throw invalid_argument("invalid parameters");
 		}
 		~Circle()
 		{
@@ -33,26 +36,31 @@ class Circle
 		}
 };
 
+
 void	Circle::setRadius(double radius)
 {
 	if (radius > 0)//&& _)
 		_r = radius;
+	else
+		throw invalid_argument("Invalid radius");
 }
 
 int	Circle::setCenterx(double x0)
 {
 	if (_x0 + _r > 0)
 		return (_x0 = x0, 1);
-	return (0);
+	else
+		throw invalid_argument("Invalid x0");
 }
 
 int	Circle::setCentery(double y0)
 {
 	if (_y0 + _r > 0)
-//	{}
 		return (_y0 = y0);
-	return (0);
+	else
+		throw invalid_argument("Invalid y0");
 }
+
 
 double	Circle::getRadius() const
 {
@@ -77,7 +85,7 @@ double	area(const Circle &C)
 	std::cout << "Are of circle is: " << area << std::endl;
 	return (area);
 }
-//add const to object
+
 void	area_check(Circle &C, double k)
 {
 	double x0 = C.getCenterx();
@@ -92,7 +100,7 @@ void	area_check(Circle &C, double k)
 	std::cout << "The area is: " << area(C) << std::endl;
 }
 
-int	belongs_circle(double x, double y, Circle &C)
+int	belongs_circle(double x, double y, const Circle &C)
 {
 	double x0 = C.getCenterx();
 	double y0 = C.getCentery();
@@ -137,7 +145,7 @@ int	num_of_intersections(const Circle &C1, Circle const &C2)
 	return (8);
 }
 
-void	length_calc(Circle &C)
+void	length_calc(const Circle &C)
 {
 	double r = C.getRadius();
 	
@@ -166,14 +174,18 @@ std::string	Circle::info()
 
 int main()
 {
-	Circle C(3, 5, 8);
-	Circle C1(4, 2, 2);
-
-	//try
-	std::cout << C.info() << std::endl;
-	std::cout << C1.info() << std::endl;
-	length_calc(C);
-	std::cout << "Distance between centers is: " << distance_of_centers(C, C1) << std::endl;
-	std::cout << "number of intersections is: " << num_of_intersections(C, C1) << std::endl;
-	//catch
+	try 
+	{
+		Circle C(3, 5, 8);
+		Circle C1(4, 2, 2);
+		std::cout << C.info() << std::endl;
+		std::cout << C1.info() << std::endl;
+		length_calc(C);
+		std::cout << "Distance between centers is: " << distance_of_centers(C, C1) << std::endl;
+		std::cout << "number of intersections is: " << num_of_intersections(C, C1) << std::endl;
+	}
+	catch (invalid_argument& e)
+	{
+		std::cout << "Exception caught" << std::endl;
+	}
 }
