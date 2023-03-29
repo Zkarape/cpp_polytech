@@ -1,24 +1,66 @@
-#include <cmath>
-#include <iostream>
-#include <cstring>
-#include <sstream>
-#include "point.hpp"
+#include "point.h"
+#include "circle_class_lab6.h"
 
-#define PHI 3.14
+class Point;
 
-Circle::Circle(double r = 1, Point& P)
+Circle::~Circle() {};
+Point::~Point() {};
+
+// Circle::Circle()
+// {
+// 	_r = 1;
+// 	_P = Point(0, 0);
+// }
+
+Circle::Circle(double r, Point& P)
 {
 	if (r > 0)
 		_r = r;
 	_P = P;
+	_count++;
 }
 
-void	Circle::setRadius(double radius)
+Circle &Circle::setRadius(double radius)
 {
 	if (radius > 0)
+	{
 		_r = radius;
+		return (*this);
+	}
 	else
 		throw std::invalid_argument("Invalid radius");
+}
+
+Circle &Circle::setPx(double x)
+{
+	if (x - _r > 0)
+	{
+		_P.setPoint(x, _P.getPointy());
+		return (*this);
+	}
+	else
+		throw std::invalid_argument("Out from XOY");
+}
+
+Circle &Circle::setPy(double y)
+{
+	if (y - _r > 0)
+	{
+		_P.setPoint(_P.getPointx(), y);
+		return (*this);
+	}
+	else
+		throw std::invalid_argument("Out from XOY");
+}
+
+Point	Circle::getPoint() const
+{
+	return (_P);
+}
+
+const Circle &Circle::getter() const
+{
+	return (*this);
 }
 
 double	Circle::getRadius() const
@@ -28,8 +70,8 @@ double	Circle::getRadius() const
 
 double	area(const Circle &C)
 {
-	double r = C.getRadius();
-	double area = PHI * r * r;
+	double r = C._r;
+	double area = M_PI * r * r;
 
 	std::cout << "Are of circle is: " << area << std::endl;
 	return (area);
@@ -37,8 +79,8 @@ double	area(const Circle &C)
 
 void	area_check(Circle &C, double k)
 {
-	double x0 = C.getCenterx();
-	double y0 = C.getCentery();
+	double x0 = C.getter().getPoint().getPointx();
+	double y0 = C.getter().getPoint().getPointy();
 	double r = C.getRadius();
 
 	if (x0 + sqrt(k) * r > 0 && y0 + sqrt(k) * r > 0)
@@ -51,8 +93,8 @@ void	area_check(Circle &C, double k)
 
 int	belongs_circle(double x, double y, const Circle &C)
 {
-	double x0 = C.getCenterx();
-	double y0 = C.getCentery();
+	double x0 = C.getter().getPoint().getPointx();
+	double y0 = C.getter().getPoint().getPointy();
 	double r = C.getRadius();
 
 	if (pow(x - x0, 2) + pow(y - y0, 2) <= r * r)
@@ -62,23 +104,25 @@ int	belongs_circle(double x, double y, const Circle &C)
 
 double	distance_of_centers(const Circle& C1, const Circle& C2)
 {
-	double x01 = C1.getCenterx();
-	double y01 = C1.getCentery();
-	double x02 = C2.getCenterx();
-	double y02 = C2.getCentery();
+	double x01 = C1.getter().getPoint().getPointx();
+	double x02 = C2.getter().getPoint().getPointx();
+	double y01 = C1.getter().getPoint().getPointy();
+	double y02 = C2.getter().getPoint().getPointy();
 	double	D = 0;
 
+	std::cout << "x0 y0" << x01 << " " << x02 << " " << y01 << " " << y02 << std::endl; 
 	D = sqrt(pow((x01 - x02), 2) + pow((y01 - y02), 2));
+	std::cout << "D == " << D << "/////////" << std::endl;
 	return (D);
 }
 
 int	num_of_intersections(const Circle &C1, Circle const &C2)
 {
-	double x1 = C1.getCenterx();
-	double y1 = C1.getCentery();
+	double x1 = C1.getter().getPoint().getPointx();
+	double x2 = C1.getter().getPoint().getPointx();
+	double y1 = C2.getter().getPoint().getPointy();
+	double y2 = C2.getter().getPoint().getPointy();
 	double r1 = C1.getRadius();
-	double x2 = C2.getCenterx();
-	double y2 = C2.getCentery();
 	double r2 = C2.getRadius();
 	double	D = 0;
 
@@ -103,30 +147,35 @@ void	length_calc(const Circle &C)
 
 void	move_horizontally(Circle& C, double move_step)
 {
-	C.setCenterx(C.getCenterx() + move_step); 
-	std::cout << "The new x_0 is: " << C.getCenterx() << std::endl;
+	C.setPx((C.getPoint().getPointx() + move_step));
+	std::cout << "The new x_0 is: " << C.getPoint().getPointx() << std::endl;
 }
 
 void	move_vertically(Circle& C, double move_step)
 {
-	C.setCentery(C.getCentery() + move_step);
-	std::cout << "The new y_0 is: " << C.getCentery() << std::endl;
+	C.setPy((C.getPoint().getPointy() + move_step));
+	std::cout << "The new y_0 is: " << C.getPoint().getPointy() << std::endl;
 }
 
 std::string	Circle::info()
 {
 	std::ostringstream ostr;
 
-	ostr << "x0 is: " << _x0 << ", \n" << "y0 is: " << _y0 << ", \n" << "radius is: " << _r << std::endl;
+	ostr << "x0 is: " << getPoint().getPointx() << ", \n" << "y0 is: " << getPoint().getPointy() << ", \n" << "radius is: " << _r << std::endl;
 	return (ostr.str());
 }
+
+int Circle::_count = 0;
 
 int main()
 {
 	try 
 	{
-		Circle C(3, 5, 8);
-		Circle C1(4, 2, 2);
+		Point  P(3, 5);
+		Circle C(8, P);
+		Point  P1(4, 2);
+		Circle C1(2, P1);
+		//C1.setPx(3).setPy(2).setRadius(4);
 		std::cout << C.info() << std::endl;
 		std::cout << C1.info() << std::endl;
 		length_calc(C);

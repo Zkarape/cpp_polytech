@@ -4,14 +4,16 @@
 class Point
 {
 	private:
-		double _x0;
-		double _y0;
+		double _x;
+		double _y;
 	public:
+		Point();
 		Point(double, double);
-		void	setCenterx(double);
-		void	setCentery(double);
-		double	getCenterx() const;
-		double	getCentery() const;
+		void	setPoint(double x, double y);
+		double	getPointx() const;
+		double	getPointy() const;
+		~Point();
+		//void	*getPoint() const;
 };
 
 #endif

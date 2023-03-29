@@ -1,4 +1,8 @@
-#include "pont.hpp"
+#include "point.h"
+#include <iostream>
+#include <cmath>
+#include <cstring>
+#include <sstream>
 
 class Circle
 {
@@ -6,11 +10,16 @@ class Circle
 		double	_r;
 		Point	_P;
 	public:
-		void	setRadius(double);
+		Circle &setRadius(double);
+		Circle &setPx(double x);
+		Circle &setPy(double y);
 		double	getRadius() const;
-		Point	getPoint();
-		static 
+		Point	getPoint() const;
+		const Circle &getter() const;
+		static	int _count;
 		std::string info();
-		Circle(double r, Point &P);
+		Circle();
+		Circle(double, Point &);
 		~Circle();
+		friend double area(const Circle &C);
 };

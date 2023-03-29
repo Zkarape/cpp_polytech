@@ -1,31 +1,40 @@
 #include "circle_class_lab6.h"
 #include "point.h"
 
+Point::Point()
+{
+	_x = 0;
+	_y = 0;
+}
+
 Point::Point(double x = 2, double y = 2)
 {
 	if (x > 0 && y > 0)
+		setPoint(x, y);
+}
+
+void	Point::setPoint(double x = 2, double y = 2)
+{
+	if (x > 0 && y > 0)
 	{
-		setCenterx(x);
-		setCentery(y);
+		_x = x;
+		_y = y;
 	}
 }
 
-void	Point::setCenterx(double x0)
+/*
+Point &Point::getPoint() const
 {
-	_x0 = x0;
+	return (*this);
+}
+*/
+
+double Point::getPointx() const
+{
+	return (_x);
 }
 
-void	Point::setCentery(double y0)
+double Point::getPointy() const
 {
-	_y0 = y0;
-}
-
-double Point::getCenterx()
-{
-	return (_x0);
-}
-
-double Point::getCentery()
-{
-	return (_y0);
+	return (_y);
 }
