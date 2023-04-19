@@ -5,6 +5,7 @@
 #include <cmath>
 #include <cstring>
 #include <sstream>
+#include <cstdbool>
 
 class Point
 {
@@ -22,6 +23,13 @@ class Point
 		Point operator+(const Point &P2) const;
 		Point operator-(const Point &P2) const;
 		Point operator+=(const Point &P2) const;
+		Point operator-=(const Point &P2) const;
+		bool operator==(const Point &P2) const;
+		bool operator!=(const Point &P2) const;
+		bool operator>(const Point &P2) const;
+		bool operator>=(const Point &P2) const;
+		bool operator<(const Point &P2) const;
+		bool operator<=(const Point &P2) const;
 		friend Point& operator++(Point&);
 		friend Point operator++(Point&, int);
 		friend std::ostream& operator<<(std::ostream&, const Point&);

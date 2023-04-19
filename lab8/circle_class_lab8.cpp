@@ -10,9 +10,14 @@ Circle::Circle(double r, Point& P)
 {
 	if (r > 0)
 		_r = r;
-	_P = P;
+	_pPtr = new Point(P);
 	_count++;
 }
+
+// Circle::~Circle()
+// {
+// 	delete _pPtr;
+// }
 
 Circle &Circle::setRadius(double radius)
 {
@@ -25,31 +30,38 @@ Circle &Circle::setRadius(double radius)
 		throw std::invalid_argument("Invalid radius");
 }
 
-Circle &Circle::setPx(double x)
+Circle::Circle(const Circle& c)
+:  _r(c._r),
+  _pPtr(new Point(*c._pPtr))
 {
-	if (x - _r > 0)
-	{
-		_P.setPoint(x, _P.getPointy());
-		return (*this);
-	}
-	else
-		throw std::invalid_argument("Out from XOY");
 }
 
-Circle &Circle::setPy(double y)
+Circle& Circle::operator=(const Circle& C)
 {
-	if (y - _r > 0)
-	{
-		_P.setPoint(_P.getPointx(), y);
-		return (*this);
+	if (this != &C) {
+		delete _pPtr;
+	    _pPtr = new Point(*C._pPtr);
+		//*_pPtr = *(C._pPtr)
+	    _r = C.getRadius();
 	}
-	else
-		throw std::invalid_argument("Out from XOY");
+	// (*this)._pPtr = C._pPtr;      !!!!!!!they will point to the same address
+	return (*this);
+}
+
+Circle &Circle::setPoint(Point *pPtr)
+{
+	//if (pPtr->getPointx() - _r > 0 && pPtr->_y - _r > 0)
+	//{
+		*(this->_pPtr) = *pPtr;
+		return (*this);
+	//}
+	//else
+	//	throw std::invalid_argument("Out from XOY");
 }
 
 Point	Circle::getPoint() const
 {
-	return (_P);
+	return (*(_pPtr));
 }
 
 const Circle &Circle::getter() const
@@ -140,7 +152,7 @@ void	length_calc(const Circle &C)
 
 void	move_horizontally(Circle& C, double move_step)
 {
-	C.setPx((C.getPoint().getPointx() + move_step));
+	C.setPx( (C.getPoint().getPointx()) + move_step);
 	std::cout << "The new x_0 is: " << C.getPoint().getPointx() << std::endl;
 }
 
@@ -211,7 +223,7 @@ int main()
 {
 	try 
 	{
-		Point P(3, 5);
+		Point P(1, 2);
 		Point tmp;
 		//P++;
 		Circle C(8, P);
@@ -223,7 +235,11 @@ int main()
 		// tmp = P + P1;
 		// std::cout << tmp << std::endl;
 		//
-		
+		//+= test
+		// P1 += P;
+		// std::cout << "tmp iss " << P1 << std::endl;
+		//
+		//printf("res == %d\n", P == P1);
 		//C1.setPx(3).setPy(2).setRadius(4);
 		std::cout << C << std::endl;
 		std::cout << C1 << std::endl;

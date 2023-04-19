@@ -217,13 +217,16 @@ int main()
 	try 
 	{
 		Point P(3, 5);
-		P++;
+		// P++;
+		Point tmp;
 		Circle C(8, P);
 		Point  P1(4, 2);
 		Circle C1(2, P1);
 		std::cout << P << std::endl;
+		tmp++;
 		//C1.setPx(3).setPy(2).setRadius(4);
-		std::cout << C << std::endl;
+		//std::cout << C << std::endl;
+		operator<<(std::cout, tmp);
 		std::cout << C1 << std::endl;
 		length_calc(C);
 		std::cout << "Distance between centers is: " << distance_of_centers(C, C1) << std::endl;

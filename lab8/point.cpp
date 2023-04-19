@@ -49,6 +49,50 @@ Point Point::operator-(const Point& P2) const
 	return (Point(this->_x - P2._x, this->_y - P2._y));
 }
 
+// Point Point::operator+=(const Point &P2) const//////////& with const causes error????????????
+// {
+// 	*this = *this + P2;
+// 	//printf("x iss = %f, y is == %f\n", x, y);
+// 	return (*this);
+// }
+
+// Point Point::operator-=(const Point &P2) const//////////& with const causes error????????????
+// {
+// 	*this = *this - P2;
+// 	//printf("x iss = %f, y is == %f\n", x, y);
+// 	return (*this);
+// }
+
+bool Point::operator==(const Point &P2) const
+{
+	return (this->getPointx() == P2.getPointx() && this->getPointy() == P2.getPointy());
+}
+
+bool Point::operator!=(const Point &P2) const
+{
+	return (this->getPointx() != P2.getPointx() && this->getPointy() != P2.getPointy());
+}
+
+bool Point::operator>(const Point &P2) const
+{
+	return (this->getPointx() > P2.getPointx() && this->getPointy() > P2.getPointy());
+}
+
+bool Point::operator>=(const Point &P2) const
+{
+	return (this->getPointx() >= P2.getPointx() && this->getPointy() >= P2.getPointy());
+}
+
+bool Point::operator<(const Point &P2) const
+{
+	return (this->getPointx() < P2.getPointx() && this->getPointy() < P2.getPointy());
+}
+
+bool Point::operator<=(const Point &P2) const
+{
+	return (this->getPointx() <= P2.getPointx() && this->getPointy() <= P2.getPointy());
+}
+
 /*
 Point& Point::operator++()
 {

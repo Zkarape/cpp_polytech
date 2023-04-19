@@ -8,9 +8,10 @@ class Circle
 {
 	private:
 		double	_r;
-		Point	_P;
+		Point	*_pPtr;
 	public:
 		Circle &setRadius(double);
+		Circle &setPoint(Point *pPtr);
 		Circle &setPx(double x);
 		Circle &setPy(double y);
 		double	getRadius() const;
@@ -19,9 +20,11 @@ class Circle
 		static	int _count;
 		std::string info();
 		Circle();
+		Circle(const Circle &);
 		Circle(double, Point &);
 		~Circle();
 		friend double area(const Circle &C);
 		friend std::ostream& operator<<(std::ostream&, const Circle&);
-		friend std::istream& operator<<(std::istream&, Circle&);
+		friend std::istream& operator>>(std::istream& input, Circle);
+		Circle& operator=(const Circle&);
 };

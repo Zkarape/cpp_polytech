@@ -2,9 +2,9 @@
 #include "point.h"
 
 Point::Point()
+	: _x(0),
+	  _y(0) 
 {
-	_x = 0;
-	_y = 0;
 }
 
 Point::Point(double x = 2, double y = 2)
