@@ -1,12 +1,28 @@
 #include "car.h"
 
-Car::Car(Engine eng, std::string name, std::string cmp, std::string model, int price, int weight, int maxV, int yr, int n)
-    : Vehicle(eng, name, cmp, model, price, weight, maxV, yr), _nmbOfSeats(n)
+Car((*ctor)(Engine eng, std::string cmp, std::string model, int price, int weight, int maxV, int yr), int n)
+    :  _nmbOfSeats(n) {}
+
+std::string Car::printCar()
 {
+    std::ostringstream ostr;
+
+    ostr << Vehicle::printVehicle();
+    ostr << "Number of seats in car " << _nmbOfSeats << std::endl;
+    return (ostr.str());
 }
 
-void Car::print()
+void    Car::set_num(int n)
 {
-    Vehicle.printinf();
-    std::cout << "Number of seats in car " << _nmbOfSeats << std::endl;
+    _nmbOfSeats = n;
+}
+
+int Car::get_num()
+{
+    return (_nmbOfSeats);
+}
+
+Car::~Car()
+{
+    std::cout << printCar();
 }
