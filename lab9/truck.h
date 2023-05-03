@@ -13,7 +13,7 @@ class Truck : public Vehicle
         int     get_cap();
     private:
         int _capacity;
-        friend std::ostream& operator<<(std::ostream&, const Truck&);
+        friend std::ostream& operator<<(std::ostream&, Truck&);
 		friend std::istream& operator>>(std::istream&, Truck&);
 };
 

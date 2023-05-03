@@ -1,5 +1,7 @@
 #include "engine.h"
 
+Engine::Engine() {};
+
 Engine::Engine(std::string model, int year, int power, type t)
     : _type(t),
       _engModel(model),
@@ -24,9 +26,22 @@ std::ostream& operator<<(std::ostream& o, Engine& E)
     return (o);
 }
 
+std::istream& operator>>(std::istream& is, Engine& engine)
+{
+    std::string model;
+    int year, power;
+    Engine::type t;
+    is >> model >> year >> power;
+    int typeInt;
+    is >> typeInt;
+    t = static_cast<Engine::type>(typeInt);
+    engine = Engine(model, year, power, t);
+    return (is);
+}
+
 Engine::~Engine()
 {
-    std::cout << printEngine();
+   // std::cout << printEngine();
 }
 
 void    Engine::set_model(std::string m)

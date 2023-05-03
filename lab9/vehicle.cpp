@@ -23,6 +23,23 @@ std::string Vehicle::printVehicle()
     return (ostr.str());
 }
 
+std::ostream& operator<<(std::ostream& o, Vehicle& V)
+{
+    o << V.printVehicle();
+    return (o);
+}
+
+std::istream& operator<<(std::istream& is, Vehicle& V)
+{
+    Engine engine;
+    is >> engine;
+    std::string company, model;
+    int price, weight, maxV, year;
+    is >> company >> model >> price >> weight >> maxV >> year;
+    V = Vehicle(engine, company, model, price, weight, maxV, year);
+    return (is);
+}
+
 void	Vehicle::set_engine(Engine e)
 {
     _engine = e;
@@ -95,5 +112,5 @@ int Vehicle::get_year()
 
 Vehicle::~Vehicle()
 {
-    std::cout << printVehicle();
+   // std::cout << printVehicle();
 }

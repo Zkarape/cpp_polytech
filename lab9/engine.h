@@ -14,6 +14,7 @@ class Engine
 			GAS,
 			ELECTRIC,
 		};
+		Engine();
 		Engine(std::string model, int year, int power, type t);
 		~Engine();
 		std::string	printEngine();

@@ -24,5 +24,22 @@ int Truck::get_cap()
 
 Truck::~Truck()
 {
-    std::cout << printTruck();
+  //  std::cout << printTruck();
+}
+
+std::ostream& operator<<(std::ostream& o, Truck& T)
+{
+    o << T.printTruck();
+    return (o);
+}
+
+std::istream& operator>>(std::istream& is, Truck& T)
+{
+    Engine engine;
+    is >> engine;
+    std::string company, model;
+    int price, weight, maxV, year, capacity;
+    is >> company >> model >> price >> weight >> maxV >> year >> capacity;
+    T = Truck(engine, company, model, price, weight, maxV, year, capacity);
+    return (is);
 }
