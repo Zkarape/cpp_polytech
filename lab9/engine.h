@@ -31,7 +31,7 @@ class Engine
 		int			_prodYear;
 		int			_horsepower;
 		type		_type;
-		friend std::ostream& operator<<(std::ostream&, const Engine&);
+		friend std::ostream& operator<<(std::ostream&, Engine&);
 		friend std::istream& operator>>(std::istream&, Engine&);
 };
 

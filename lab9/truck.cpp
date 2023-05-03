@@ -35,11 +35,14 @@ std::ostream& operator<<(std::ostream& o, Truck& T)
 
 std::istream& operator>>(std::istream& is, Truck& T)
 {
-    Engine engine;
-    is >> engine;
-    std::string company, model;
-    int price, weight, maxV, year, capacity;
-    is >> company >> model >> price >> weight >> maxV >> year >> capacity;
-    T = Truck(engine, company, model, price, weight, maxV, year, capacity);
+    is >> static_cast<Vehicle&>(T);
+    int capacity;
+    is >> capacity;
+    // Engine engine;
+    // is >> engine;
+    // std::string company, model;
+    // int price, weight, maxV, year, capacity;
+    // is >> company >> model >> price >> weight >> maxV >> year >> capacity;
+    // T = Truck(engine, company, model, price, weight, maxV, year, capacity);
     return (is);
 }

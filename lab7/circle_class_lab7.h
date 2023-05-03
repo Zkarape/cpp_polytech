@@ -23,5 +23,5 @@ class Circle
 		~Circle();
 		friend double area(const Circle &C);
 		friend std::ostream& operator<<(std::ostream&, const Circle&);
-		friend std::istream& operator<<(std::istream&, Circle&);
+		friend std::istream& operator>>(std::istream&, Circle&);
 };

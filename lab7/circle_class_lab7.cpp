@@ -183,7 +183,7 @@ Point operator++(Point& p, int)
 std::ostream& operator<<(std::ostream& output, const Circle& C)
 {
 	// output << C.info();
-	output << "Center is " << C.getPoint().getPointx() << "," << C.getPoint().getPointy() << " Radius is " << C.getRadius() <<std::endl;
+	output << "Center is " << C.getPoint().getPointx() << "," << C.getPoint().getPointy() << " Radius is " << C.getRadius() << std::endl;
 	return (output);
 }
 

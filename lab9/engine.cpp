@@ -7,7 +7,9 @@ Engine::Engine(std::string model, int year, int power, type t)
       _engModel(model),
       _horsepower(power),
       _prodYear(year)
-{}
+{
+     _type = static_cast<type>(5);
+}
 
 std::string Engine::printEngine()
 {
@@ -31,6 +33,7 @@ std::istream& operator>>(std::istream& is, Engine& engine)
     std::string model;
     int year, power;
     Engine::type t;
+    std::cout << "model, year, power, typeInt" << std::endl;
     is >> model >> year >> power;
     int typeInt;
     is >> typeInt;

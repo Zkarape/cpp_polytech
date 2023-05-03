@@ -25,7 +25,7 @@ std::istream& operator>>(std::istream& is, Car& c)
     std::string company, model;
     int price, weight, maxV, year, num;
     is >> company >> model >> price >> weight >> maxV >> year >> num;
-    c = Car(engine, company, model, price, weight, maxV, year, num);
+    c = Car(engine, company, model, price, weight, maxV, year, num);//
     return (is);
 }
 

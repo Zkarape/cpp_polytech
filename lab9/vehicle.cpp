@@ -29,7 +29,7 @@ std::ostream& operator<<(std::ostream& o, Vehicle& V)
     return (o);
 }
 
-std::istream& operator<<(std::istream& is, Vehicle& V)
+std::istream& operator>>(std::istream& is, Vehicle& V)
 {
     Engine engine;
     is >> engine;

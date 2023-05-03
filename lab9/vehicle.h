@@ -33,7 +33,7 @@ class Vehicle
 		int			_weight;
 		int			_maxV;
 		int			_year;
-		friend std::ostream& operator<<(std::ostream&, const Vehicle&);
+		friend std::ostream& operator<<(std::ostream&, Vehicle&);
 		friend std::istream& operator>>(std::istream&, Vehicle&);
 };
 

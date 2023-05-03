@@ -13,7 +13,7 @@ class Car : public Vehicle
         int     get_num();
     private:
         int _nmbOfSeats;
-		friend std::ostream& operator<<(std::ostream&, const Car&);
+		friend std::ostream& operator<<(std::ostream&, Car&);
 		friend std::istream& operator>>(std::istream&, Car&);
 };
 

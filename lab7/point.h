@@ -22,7 +22,7 @@ class Point
 		friend Point& operator++(Point&);
 		friend Point operator++(Point&, int);
 		friend std::ostream& operator<<(std::ostream&, const Point&);
-		friend std::istream& operator<<(std::istream&, Point&);
+		friend std::istream& operator>>(std::istream&, Point&);
 		~Point();
 		//void	*getPoint() const;
 };
