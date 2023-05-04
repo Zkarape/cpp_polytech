@@ -1,24 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-
-// void printMatrixTable(int matrix[][ N], int rows, int cols)
-// {
-//     int i, j;
-//     printf("   ");
-//     for (j = 0; j < cols; j++) {
-//         printf("%3d ", j + 1);
-//     }
-//     printf("\n");
-//     for (i = 0; i < rows; i++) {
-//         printf("%2d|", i + 1);
-//         for (j = 0; j < cols; j++) 
-//         {
-//             scanf("%d", &matrix[i][j]);
-//             printf("%3d ", matrix[i][j]);
-//         }
-//         printf("\n");
-//     }
-// }
+#include <math.h>
 
 int main()
 {
@@ -38,13 +20,14 @@ int main()
         "ֆիզիկական վիճակ",
         "հոգեբանական վիճակ",
         "աշխատասիրություն",
+        "t_j"
     };
     for(int o = 0; o < k; o++)
     {
         sums[o] = 0;
     }
     printf("    ");
-    for (j = 0; j < k; j++)
+    for (j = 0; j < k + 1; j++)
     {
         printf("%4s | ", gorconner[j]);
     }
@@ -67,7 +50,7 @@ int main()
         printf("     %d         ", sums[j]);
     }
     printf("\n");
-    printf("նոր|  ");
+    printf("   նոր|  ");
     for(int o = 0; o < k; o++)
     {
         sums2[o] = sums[o];
@@ -99,4 +82,11 @@ int main()
         printf("     %d         ", sums2[j]);
     }
     printf("\n");
+    //calculate S
+    double s = 0, sum = 0;
+    for (int i = 0; i < k; i++)
+    {
+        s += (sums[i] - 0.5 * N * (k + 1)) * (sums[i] - 0.5 * N * (k + 1));
+    }
+    
 }
