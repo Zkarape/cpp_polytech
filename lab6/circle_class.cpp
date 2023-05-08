@@ -1,15 +1,17 @@
-> Anna:
 #include <cmath>
 #include <iostream>
 #include <cstring>
 #include <sstream>
 
 #define PHI 3.14
+
 class Point
 {
-	Point(double x = 5, double y = 5) private : double _x;
-	double_y;
-}
+	Point(double x = 5, double y = 5); 
+	private :
+		double _x;
+		double _y;
+};
 
 class Circle
 {
