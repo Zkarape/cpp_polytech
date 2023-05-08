@@ -20,14 +20,13 @@ int main()
         "ֆիզիկական վիճակ",
         "հոգեբանական վիճակ",
         "աշխատասիրություն",
-        "t_j"
     };
     for(int o = 0; o < k; o++)
     {
         sums[o] = 0;
     }
     printf("    ");
-    for (j = 0; j < k + 1; j++)
+    for (j = 0; j < k; j++)
     {
         printf("%4s | ", gorconner[j]);
     }
@@ -88,5 +87,32 @@ int main()
     {
         s += (sums[i] - 0.5 * N * (k + 1)) * (sums[i] - 0.5 * N * (k + 1));
     }
-    
+    printf("   t_j|  ");
+    int t = 0;
+    int tarr[N];
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            if (table[i][j] == sums2[j])
+                t++;
+        }
+        tarr[i] = t;
+    }
+    for(j = 0; j < N; j++)
+    {
+        printf("    t_%d=%d     ", j, tarr[j]);
+    }
+    printf("\n");
+    double w = 1;
+    int     ttt, T = 0;
+    for (int i = 0; i < N; i++)
+    {
+        T += tarr[j] * tarr[j] * tarr[j] - tarr[j];
+    }
+    w = (12 * s) / (N * (N * (k * k * k - k) - T));
+    printf("     S|      %f", s);
+    printf("\n");
+    printf("     W|      %f", w);
+    printf("\n");
 }
