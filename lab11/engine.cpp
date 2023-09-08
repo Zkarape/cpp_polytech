@@ -44,7 +44,6 @@ std::istream& operator>>(std::istream& is, Engine& engine)
 
 Engine::~Engine()
 {
-    std::cout << "~Engine() is called" << std::endl;
    // std::cout << printEngine();
 }
 

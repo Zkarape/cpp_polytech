@@ -30,10 +30,10 @@ int main()
     Engine E1("Prado", 2020, 300, Engine::GAS);
     Engine E2("Prado", 2020, 335, Engine::GAS);
     Engine E3("Prado", 2020, 400, Engine::GAS);
-    Car C1(E1, "Toyota", "Prado1", 50000, 50, 200, 2020, 7);
-    Car C2(E2, "Toyota", "Prado2", 50000, 50, 200, 2020, 2);
-    Car C3(E3, "Toyota", "Prado3", 50000, 50, 200, 2020, 6);
-    Car* C[3];
+    Car C1(E1, "Toyota", "Prado1", 50000, 50, 200, 2021, 7);
+    Car C2(E2, "Toyota", "Prado2", 50000, 50, 200, 2022, 2);
+    Car C3(E3, "Toyota", "Prado3", 50000, 50, 200, 2023, 6);
+    Car *C[3];
     C[0] = &C1;
     C[1] = &C2;
     C[2] = &C3;

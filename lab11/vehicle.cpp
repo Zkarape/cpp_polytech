@@ -1,12 +1,12 @@
 #include "vehicle.h"
 
-Vehicle::Vehicle(Engine eng, std::string cmp, std::string model, int price, int weight, int maxV, int yr)
+Vehicle::Vehicle(Engine eng, std::string cmp, std::string model, int price, int weight, float maxV, int yr)
     : _engine(eng),
       _company(cmp),
       _model(model),
       _price(price),
       _weight(weight),
-      _maxV(maxV),
+      _maxVelocity(maxV),
       _year(yr)
 {}
 
@@ -19,7 +19,7 @@ std::string Vehicle::printVehicle()
     ostr << "Vehicle production year is " << _year << std::endl;
     ostr << "Vehicle price is " << _price << std::endl;
     ostr << "Vehicle weight is " << _weight << std::endl;
-    ostr << "Vehicle maximal velocity is " << _maxV << std::endl;
+    ostr << "Vehicle maximal velocity is " << _maxVelocity << std::endl;
     return (ostr.str());
 }
 
@@ -47,7 +47,7 @@ std::istream& operator>>(std::istream& is, Vehicle& V)
     std::string company, model;
     int price, weight, maxV, year;
     is >> company >> model >> price >> weight >> maxV >> year;
-    V = Vehicle(engine, company, model, price, weight, maxV, year);
+  //  V = Vehicle(engine, company, model, price, weight, maxV, year);
     return (is);
 }
 
@@ -76,14 +76,29 @@ void    Vehicle::set_weight(int w)
     _weight = w;
 }
 
-void    Vehicle::set_maxv(int v)
+void    Vehicle::setMaxVelocity(float v)
 {
-    _maxV = v;
+    _maxVelocity = v;
+}
+
+void    Vehicle::setVelocity(float v)
+{
+    _velocity = v;
+}
+
+void    Vehicle::setIsRunning(bool b)
+{
+    _isRunning = b;
 }
 
 void    Vehicle::set_year(int y)
 {
     _year = y;
+}
+
+float Vehicle::getCurrentLoad()
+{
+    return (0);
 }
 
 Engine  Vehicle::get_engine()
@@ -113,7 +128,7 @@ int Vehicle::get_weight()
 
 int Vehicle::get_maxv()
 {
-    return (_maxV);
+    return (_maxVelocity);
 }
 
 int Vehicle::get_year()
@@ -121,7 +136,29 @@ int Vehicle::get_year()
     return (_year);
 }
 
+float   Vehicle::getVelocity()
+{
+    return(_velocity);
+}
+
+float   Vehicle::getMaxVelocity()
+{
+    return(_maxVelocity);
+}
+
+bool    Vehicle::getIsRunning()
+{
+    return (_isRunning);
+}
+
 Vehicle::~Vehicle()
 {
-   // std::cout << printVehicle();
+    std::cout << "~Vehicle() is called" << std::endl;
+}
+
+void    Vehicle::run(double tillVelocity)//template method, design pattern
+{
+    this->start();
+    this->accelerate(tillVelocity);
+    this->stop();
 }
